@@ -1,0 +1,124 @@
+.industries {
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.industries::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 500px;
+  border: 1px dashed rgba(245, 158, 11, 0.1);
+  border-radius: 50%;
+  animation: spinSlow 40s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes spinSlow {
+  0% { transform: translateX(-50%) rotate(0deg); }
+  100% { transform: translateX(-50%) rotate(360deg); }
+}
+
+.ind-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  perspective: 1000px;
+}
+
+.ind-card {
+  text-align: center;
+  padding: 40px 28px 32px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-lg);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 40, 80, 0.04);
+  transform-style: preserve-3d;
+}
+
+.ind-card:hover {
+  border-color: rgba(245, 166, 35, 0.15);
+  transform: translateY(-10px) rotateY(-2deg);
+  box-shadow: 0 20px 40px rgba(0, 40, 80, 0.1);
+}
+
+.ind-icon-ring {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 2px solid var(--ring-color, var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  position: relative;
+  transition: all 0.4s ease;
+}
+
+.ind-icon-ring::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px dashed var(--ring-color, var(--accent));
+  opacity: 0;
+  transition: all 0.4s ease;
+  animation: none;
+}
+
+.ind-card:hover .ind-icon-ring {
+  background: rgba(245, 166, 35, 0.04);
+  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(245, 166, 35, 0.1);
+}
+
+.ind-card:hover .ind-icon-ring::after {
+  opacity: 0.4;
+  animation: spinSlow 8s linear infinite;
+}
+
+.ind-icon {
+  font-size: 1.8rem;
+}
+
+.ind-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.ind-card p {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.65;
+}
+
+.ind-line {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 60%;
+  height: 3px;
+  border-radius: 2px;
+  transition: transform 0.4s ease;
+}
+
+.ind-card:hover .ind-line {
+  transform: translateX(-50%) scaleX(1);
+}
+
+@media (max-width: 1024px) {
+  .ind-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .ind-grid { grid-template-columns: 1fr; }
+}

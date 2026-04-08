@@ -1,0 +1,411 @@
+/* =====================================================
+   GLOBE VISUALIZATION — Animated 3D Globe
+   ===================================================== */
+.globe-container {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  aspect-ratio: 1;
+  flex-shrink: 0;
+}
+
+/* Stars */
+.globe-stars {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+}
+
+.g-star {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  animation: starTwinkle 3s ease-in-out infinite;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.8; }
+}
+
+/* Globe Sphere */
+.globe-sphere {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: globeFloat 8s ease-in-out infinite;
+}
+
+@keyframes globeFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.globe-svg {
+  width: 85%;
+  height: 85%;
+  filter: drop-shadow(0 0 40px rgba(245, 166, 35, 0.08));
+  animation: globeSpin 60s linear infinite;
+}
+
+@keyframes globeSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* =====================================================
+   ORBITAL RINGS
+   ===================================================== */
+.orbit {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(245, 166, 35, 0.08);
+  pointer-events: none;
+}
+
+.orbit-1 {
+  width: 110%;
+  height: 50%;
+  top: 25%;
+  left: -5%;
+  transform: rotateX(70deg) rotateZ(-20deg);
+  border-color: rgba(245, 166, 35, 0.1);
+  animation: orbitRotate1 20s linear infinite;
+}
+
+.orbit-2 {
+  width: 120%;
+  height: 55%;
+  top: 22%;
+  left: -10%;
+  transform: rotateX(65deg) rotateZ(30deg);
+  border-color: rgba(16, 185, 129, 0.06);
+  animation: orbitRotate2 28s linear infinite reverse;
+}
+
+.orbit-3 {
+  width: 130%;
+  height: 45%;
+  top: 28%;
+  left: -15%;
+  transform: rotateX(75deg) rotateZ(-45deg);
+  border-color: rgba(168, 85, 247, 0.06);
+  animation: orbitRotate3 35s linear infinite;
+}
+
+@keyframes orbitRotate1 {
+  0% { transform: rotateX(70deg) rotateZ(-20deg); }
+  100% { transform: rotateX(70deg) rotateZ(340deg); }
+}
+
+@keyframes orbitRotate2 {
+  0% { transform: rotateX(65deg) rotateZ(30deg); }
+  100% { transform: rotateX(65deg) rotateZ(390deg); }
+}
+
+@keyframes orbitRotate3 {
+  0% { transform: rotateX(75deg) rotateZ(-45deg); }
+  100% { transform: rotateX(75deg) rotateZ(315deg); }
+}
+
+/* Satellites */
+.satellite {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.sat-1 { animation: satOrbit1 20s linear infinite; }
+.sat-2 { animation: satOrbit2 28s linear infinite reverse; }
+.sat-3 { animation: satOrbit3 35s linear infinite; top: auto; bottom: -4px; }
+
+@keyframes satOrbit1 {
+  0% { left: 0; top: 50%; }
+  25% { left: 50%; top: -4px; }
+  50% { left: 100%; top: 50%; }
+  75% { left: 50%; top: calc(100% + 4px); }
+  100% { left: 0; top: 50%; }
+}
+
+@keyframes satOrbit2 {
+  0% { left: 0; top: 50%; }
+  25% { left: 50%; top: -4px; }
+  50% { left: 100%; top: 50%; }
+  75% { left: 50%; top: calc(100% + 4px); }
+  100% { left: 0; top: 50%; }
+}
+
+@keyframes satOrbit3 {
+  0% { left: 100%; bottom: 50%; }
+  25% { left: 50%; bottom: calc(100% + 4px); }
+  50% { left: 0; bottom: 50%; }
+  75% { left: 50%; bottom: -4px; }
+  100% { left: 100%; bottom: 50%; }
+}
+
+.sat-body {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent-glow);
+  position: relative;
+}
+
+.sat-2 .sat-body {
+  background: var(--accent-green);
+  box-shadow: 0 0 10px var(--accent-green), 0 0 20px rgba(16, 185, 129, 0.3);
+}
+
+.sat-3 .sat-body {
+  background: var(--accent-purple);
+  box-shadow: 0 0 10px var(--accent-purple), 0 0 20px rgba(168, 85, 247, 0.3);
+}
+
+.sat-signal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  margin: -15px;
+  border-radius: 50%;
+  border: 1px solid rgba(245, 166, 35, 0.3);
+  animation: satSignal 2s ease-out infinite;
+}
+
+.sat-3 .sat-signal {
+  border-color: rgba(168, 85, 247, 0.3);
+}
+
+@keyframes satSignal {
+  0% { transform: scale(0.3); opacity: 0.8; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+/* =====================================================
+   FLOATING DATA PANELS
+   ===================================================== */
+.g-panel {
+  position: absolute;
+  background: rgba(6, 13, 24, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(245, 166, 35, 0.12);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.7rem;
+  z-index: 10;
+  min-width: 160px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  animation: panelFloat 6s ease-in-out infinite;
+}
+
+.g-panel-1 {
+  top: 8%;
+  right: -5%;
+  animation-delay: 0s;
+}
+
+.g-panel-2 {
+  bottom: 15%;
+  left: -8%;
+  animation-delay: 2s;
+}
+
+.g-panel-3 {
+  bottom: 5%;
+  right: 0%;
+  animation-delay: 4s;
+  min-width: 140px;
+}
+
+@keyframes panelFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.gp-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--text-light);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+}
+
+.gp-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: dotBlink 2s ease-in-out infinite;
+}
+
+.gp-dot.live {
+  background: var(--accent-green);
+}
+
+.gp-dot.orange {
+  background: var(--accent-orange);
+}
+
+@keyframes dotBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.gp-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 0;
+  color: var(--text-light);
+  font-size: 0.68rem;
+}
+
+.gp-val {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.62rem;
+  letter-spacing: 1px;
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+.gp-val.green {
+  color: var(--accent-green);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.gp-val.blue {
+  color: var(--accent);
+  background: rgba(245, 166, 35, 0.1);
+}
+
+.gp-metric {
+  text-align: center;
+  padding: 6px 0;
+}
+
+.gp-metric-val {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.gp-metric-label {
+  display: block;
+  font-size: 0.6rem;
+  color: var(--text-light);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.gp-bar-wrap {
+  margin-top: 6px;
+}
+
+.gp-bar {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.gp-bar-fill {
+  height: 100%;
+  background: var(--gradient-accent);
+  border-radius: 2px;
+  animation: barPulse 3s ease-in-out infinite;
+}
+
+@keyframes barPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.gp-bar-label {
+  font-size: 0.58rem;
+  color: var(--text-light);
+  letter-spacing: 0.5px;
+}
+
+/* Threat Panel */
+.gp-threat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.gp-threat-val {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-green);
+  letter-spacing: 2px;
+}
+
+.gp-threat-bars {
+  display: flex;
+  gap: 3px;
+}
+
+.tb {
+  width: 6px;
+  height: 16px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.tb.active {
+  background: var(--accent-green);
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
+}
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+@media (max-width: 1024px) {
+  .globe-container {
+    max-width: 500px;
+  }
+
+  .g-panel-1 { right: 0; }
+  .g-panel-2 { left: -2%; }
+}
+
+@media (max-width: 768px) {
+  .globe-container {
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  .g-panel {
+    display: none;
+  }
+
+  .orbit-2, .orbit-3 {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .globe-container {
+    max-width: 280px;
+  }
+}
