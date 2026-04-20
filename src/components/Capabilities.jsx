@@ -9,9 +9,21 @@ const capabilities = [
   { num: '06', title: '24/7 Support & Training', desc: 'Lifecycle support, field maintenance, and comprehensive training programs for defense personnel.', percent: 99 },
 ]
 
-function Capabilities() {
+function Capabilities({ backgroundVideo = '' }) {
+  const hasVideo = Boolean(backgroundVideo)
+
   return (
-    <section id="capabilities" className="section capabilities">
+    <section id="capabilities" className={`section capabilities ${hasVideo ? 'has-video-bg' : ''}`}>
+      {hasVideo && (
+        <>
+          <div className="section-video-bg">
+            <video autoPlay muted loop playsInline preload="metadata">
+              <source src={backgroundVideo} type="video/mp4" />
+            </video>
+          </div>
+          <div className="section-video-overlay"></div>
+        </>
+      )}
       <div className="container">
         <div className="section-header fade-in">
           <span className="section-tag">Our Strengths</span>

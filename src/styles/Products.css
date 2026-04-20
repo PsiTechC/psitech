@@ -44,9 +44,12 @@
 
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 440px));
+  justify-content: center;
+  gap: 20px;
   perspective: 1200px;
+  max-width: 960px;
+  margin: 0 auto;
 }
 
 .product-card {

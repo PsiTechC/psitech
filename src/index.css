@@ -48,13 +48,26 @@
 }
 
 html {
-  scroll-behavior: smooth;
   font-size: 16px;
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(245, 166, 35, 0.3) transparent;
 }
 
 html::-webkit-scrollbar {
-  display: none;
+  width: 6px;
+}
+
+html::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: rgba(245, 166, 35, 0.3);
+  border-radius: 3px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 166, 35, 0.5);
 }
 
 body {
@@ -107,6 +120,7 @@ img {
   padding: 120px 0;
   position: relative;
   overflow: hidden;
+  contain: content;
 }
 
 /* =====================================================

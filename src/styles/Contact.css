@@ -106,8 +106,16 @@
 .cc-item p {
   font-size: 0.88rem;
   color: var(--text-light);
-  line-height: 1.5;
+  line-height: 1.55;
 }
+
+.cc-item p a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.cc-item p a:hover { color: #F5A623; }
 
 .contact-secure {
   display: inline-flex;

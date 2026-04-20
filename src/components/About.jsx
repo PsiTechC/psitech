@@ -41,7 +41,7 @@ const highlights = [
 ]
 
 const timeline = [
-  { year: '2014', event: 'Company founded with a vision for indigenous defense tech' },
+  { year: '2011', event: 'Company founded with a vision for indigenous defense tech' },
   { year: '2016', event: 'First Naval IoT contract with Indian Navy' },
   { year: '2018', event: 'Ocean Data Intelligence platform launched' },
   { year: '2020', event: 'DRDO certified partner status achieved' },
@@ -83,7 +83,9 @@ function AnimatedCounter({ target, suffix }) {
   return <span ref={ref}>{count}{suffix}</span>
 }
 
-function About() {
+function About({ showJourney = true }) {
+  const aboutGridClass = `about-grid ${showJourney ? '' : 'about-grid-no-journey'}`.trim()
+
   return (
     <section id="about" className="section about">
       <div className="container">
@@ -109,7 +111,7 @@ function About() {
           ))}
         </div>
 
-        <div className="about-grid">
+        <div className={aboutGridClass}>
           <div className="about-text fade-in-left">
             <div className="about-lead-wrap">
               <div className="about-accent-bar"></div>
@@ -145,26 +147,28 @@ function About() {
             </div>
           </div>
 
-          <div className="about-visual fade-in-right">
-            <div className="about-timeline">
-              <h3 className="timeline-title">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="18" height="18"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                Our Journey
-              </h3>
-              <div className="timeline-line"></div>
-              {timeline.map((item, i) => (
-                <div className="timeline-item" key={i} style={{ animationDelay: `${i * 0.1}s` }}>
-                  <div className="tl-dot">
-                    <div className="tl-dot-inner"></div>
+          {showJourney && (
+            <div className="about-visual fade-in-right">
+              <div className="about-timeline">
+                <h3 className="timeline-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="18" height="18"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  Our Journey
+                </h3>
+                <div className="timeline-line"></div>
+                {timeline.map((item, i) => (
+                  <div className="timeline-item" key={i} style={{ animationDelay: `${i * 0.1}s` }}>
+                    <div className="tl-dot">
+                      <div className="tl-dot-inner"></div>
+                    </div>
+                    <div className="tl-content">
+                      <span className="tl-year">{item.year}</span>
+                      <p>{item.event}</p>
+                    </div>
                   </div>
-                  <div className="tl-content">
-                    <span className="tl-year">{item.year}</span>
-                    <p>{item.event}</p>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </section>

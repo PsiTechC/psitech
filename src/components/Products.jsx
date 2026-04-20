@@ -13,7 +13,7 @@ function Products() {
           <p className="section-subtitle">Cutting-edge defense technology engineered for India's security forces</p>
         </div>
         <div className="products-grid">
-          {products.map((product, i) => (
+          {products.filter((p) => !p.hidden).map((product, i) => (
             <Link
               to={`/product/${product.id}`}
               className="product-card fade-in"

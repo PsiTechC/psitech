@@ -27,7 +27,7 @@ function Contact() {
         <div className="contact-grid">
           <div className="contact-info fade-in-left">
             <h3>Ready to Discuss Your <span className="accent">Requirements</span>?</h3>
-            <p>Whether you need a custom IoT solution for naval operations or a comprehensive defense system, our team is ready to help.</p>
+            <p>Whether you need geospatial intelligence at scale or real-time open-source monitoring, our team is ready to scope a pilot with you.</p>
 
             <div className="contact-cards">
               <div className="cc-item">
@@ -36,7 +36,7 @@ function Contact() {
                 </div>
                 <div>
                   <h4>Headquarters</h4>
-                  <p>PsiTech Consultancy Pvt Ltd<br/>New Delhi, India - 110001</p>
+                  <p>Psitech Consultancy Services Private Limited<br/>NMS Titanium, Office No. 801, Plot No. 74,<br/>Sector 15, CBD Belapur,<br/>Navi Mumbai, Maharashtra – 400614, India</p>
                 </div>
               </div>
               <div className="cc-item">
@@ -45,7 +45,7 @@ function Contact() {
                 </div>
                 <div>
                   <h4>Phone</h4>
-                  <p>+91-11-XXXX-XXXX</p>
+                  <p><a href="tel:+912246178380">+91-22-4617-8380</a></p>
                 </div>
               </div>
               <div className="cc-item">
@@ -54,7 +54,7 @@ function Contact() {
                 </div>
                 <div>
                   <h4>Email</h4>
-                  <p>info@psitech.in</p>
+                  <p><a href="mailto:admin@psitech.co.in">admin@psitech.co.in</a></p>
                 </div>
               </div>
             </div>
@@ -72,7 +72,7 @@ function Contact() {
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="36" height="36"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                 </div>
                 <h3>Inquiry Sent Successfully</h3>
-                <p>Our defense solutions team will respond within 24 hours.</p>
+                <p>Our intelligence team will respond within 24 hours.</p>
               </div>
             ) : (
               <form className="contact-form" onSubmit={handleSubmit}>
@@ -100,12 +100,8 @@ function Contact() {
                   <label htmlFor="interest">Area of Interest</label>
                   <select id="interest" name="interest">
                     <option value="">Select a Product Area</option>
-                    <option value="navy-iot">Naval IoT Systems</option>
-                    <option value="ocean-data">Ocean Data Intelligence</option>
-                    <option value="speed-nav">Speed & Navigation Tech</option>
-                    <option value="army">Army Defense Solutions</option>
-                    <option value="surveillance">Surveillance & Reconnaissance</option>
-                    <option value="cyber">Defense Cybersecurity</option>
+                    <option value="geoint">Geographical Intelligence</option>
+                    <option value="osint">OSINT Intelligence</option>
                     <option value="other">Other / Custom Requirement</option>
                   </select>
                 </div>

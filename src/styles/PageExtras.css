@@ -1,0 +1,327 @@
+/* =====================================================
+   SHARED PAGE EXTRAS — team, process, tech, metrics, faq
+   ===================================================== */
+
+/* ── TEAM GRID (AboutPage) ── */
+.pe-team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  margin-top: 48px;
+}
+
+.pe-team-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 32px 24px 28px;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.pe-team-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #E8920E, #F5A623);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.pe-team-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(245, 166, 35, 0.25);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35), 0 0 25px rgba(245, 166, 35, 0.06);
+}
+
+.pe-team-card:hover::before { transform: scaleX(1); }
+
+.pe-team-avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #E8920E, #F5A623);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #0b1220;
+  border: 3px solid rgba(245, 166, 35, 0.3);
+  box-shadow: 0 8px 24px rgba(245, 166, 35, 0.2);
+}
+
+.pe-team-name {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.pe-team-role {
+  font-size: 0.78rem;
+  color: #F5A623;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.pe-team-bio {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.65;
+}
+
+/* ── PROCESS STEPS (ServicesPage) ── */
+.pe-process {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+  position: relative;
+}
+
+.pe-process::before {
+  content: '';
+  position: absolute;
+  top: 34px;
+  left: 12%;
+  right: 12%;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(245, 166, 35, 0.3), rgba(245, 166, 35, 0.05));
+  z-index: 0;
+}
+
+.pe-process-step {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.pe-process-num {
+  display: inline-flex;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #060d18;
+  border: 2px solid rgba(245, 166, 35, 0.4);
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #F5A623;
+  margin-bottom: 18px;
+  transition: all 0.3s ease;
+}
+
+.pe-process-step:hover .pe-process-num {
+  background: linear-gradient(135deg, #E8920E, #F5A623);
+  color: #ffffff;
+  border-color: #F5A623;
+  box-shadow: 0 0 30px rgba(245, 166, 35, 0.4);
+  transform: scale(1.05);
+}
+
+.pe-process-step h4 {
+  font-size: 1rem;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.pe-process-step p {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.65;
+  max-width: 220px;
+  margin: 0 auto;
+}
+
+/* ── TECH STACK (CapabilitiesPage) ── */
+.pe-tech-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 48px;
+}
+
+.pe-tech-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 26px 22px;
+  transition: all 0.3s ease;
+}
+
+.pe-tech-card:hover {
+  border-color: rgba(245, 166, 35, 0.25);
+  background: rgba(245, 166, 35, 0.04);
+  transform: translateY(-4px);
+}
+
+.pe-tech-card h4 {
+  color: #F5A623;
+  font-size: 0.78rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+
+.pe-tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pe-tech-pill {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.75);
+  padding: 5px 11px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  transition: all 0.25s ease;
+}
+
+.pe-tech-card:hover .pe-tech-pill {
+  border-color: rgba(245, 166, 35, 0.2);
+  background: rgba(245, 166, 35, 0.06);
+}
+
+/* ── METRIC CARDS (ProductsPage) ── */
+.pe-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 48px;
+}
+
+.pe-metric {
+  position: relative;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 34px 28px;
+  text-align: center;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.pe-metric::after {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 166, 35, 0.08), transparent 70%);
+  pointer-events: none;
+}
+
+.pe-metric:hover {
+  transform: translateY(-6px);
+  border-color: rgba(245, 166, 35, 0.22);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
+}
+
+.pe-metric-value {
+  font-family: var(--font-heading);
+  font-size: 2.6rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 20%, #F5A623 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.pe-metric-label {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+}
+
+/* ── FAQ (ContactPage) ── */
+.pe-faq {
+  max-width: 860px;
+  margin: 48px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pe-faq-item {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.pe-faq-item[open] {
+  border-color: rgba(245, 166, 35, 0.25);
+  background: rgba(245, 166, 35, 0.04);
+}
+
+.pe-faq-summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 20px 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-heading);
+  font-size: 0.98rem;
+  color: #ffffff;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.pe-faq-summary::-webkit-details-marker { display: none; }
+
+.pe-faq-item[open] .pe-faq-summary { color: #F5A623; }
+
+.pe-faq-icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  color: #F5A623;
+  transition: transform 0.3s ease;
+}
+
+.pe-faq-item[open] .pe-faq-icon { transform: rotate(45deg); }
+
+.pe-faq-body {
+  padding: 0 26px 22px;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.92rem;
+  line-height: 1.8;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .pe-team-grid { grid-template-columns: repeat(2, 1fr); }
+  .pe-process { grid-template-columns: repeat(2, 1fr); gap: 32px 24px; }
+  .pe-process::before { display: none; }
+  .pe-tech-grid { grid-template-columns: repeat(2, 1fr); }
+  .pe-metrics { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .pe-team-grid,
+  .pe-process,
+  .pe-tech-grid,
+  .pe-metrics { grid-template-columns: 1fr; }
+}

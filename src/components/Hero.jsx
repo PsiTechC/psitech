@@ -1,29 +1,48 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
+import { Link } from 'react-router-dom'
 import '../styles/Hero.css'
 
+const VIDEO_PLAYBACK_RATE = 0.7
+
 const stats = [
-  { target: 150, suffix: '+', label: 'Systems Deployed', icon: '⚡' },
-  { target: 12, suffix: '+', label: 'Years of Excellence', icon: '🏆' },
-  { target: 50, suffix: '+', label: 'Defense Projects', icon: '🛡️' },
-  { target: 99, suffix: '%', label: 'Uptime Guaranteed', icon: '📡' },
+  { target: 150, suffix: '+', label: 'Systems Deployed', icon: 'SYS' },
+  { target: 12, suffix: '+', label: 'Years of Excellence', icon: 'YRS' },
+  { target: 50, suffix: '+', label: 'Defense Projects', icon: 'PRJ' },
+  { target: 99, suffix: '%', label: 'Uptime Guaranteed', icon: 'UP' },
 ]
 
 const heroSlides = [
   {
-    video: '/homepage1.mp4',
-    badge: 'DEFENSE • MARITIME • TECHNOLOGY',
-    heading: "Securing India's",
-    accent: 'Frontiers',
-    sub: 'with Advanced Technology',
-    desc: 'Pioneering IoT, Ocean Intelligence & Defense Solutions that protect India\'s maritime borders and empower ground forces with next-gen technology.',
+    video: '/home.mp4',
+    badge: 'GEOINT | SATELLITE | ANALYTICS',
+    heading: 'Monitoring Every',
+    accent: 'Change',
+    sub: 'with Geospatial Precision',
+    desc: 'Tasking, ingesting, and analyzing multi-source satellite imagery to deliver decision-ready intelligence in near real-time.',
   },
   {
-    video: '/homepage3.mp4',
-    badge: 'NAVAL • SYSTEMS • INTELLIGENCE',
-    heading: 'Dominating the',
-    accent: 'Seas',
-    sub: 'with Smart Naval IoT',
-    desc: 'Real-time fleet monitoring, underwater communication, and AI-powered ocean intelligence for India\'s maritime superiority.',
+    video: '/home2.mp4',
+    badge: 'OSINT | RISK | AWARENESS',
+    heading: 'Connecting Global',
+    accent: 'Signals',
+    sub: 'for Faster Decisions',
+    desc: 'From open-source feeds to contextual alerts, we transform weak signals into trusted insights for mission-critical teams.',
+  },
+  {
+    video: '/home3.mp4',
+    badge: 'AI | DRONE | DEFENCE',
+    heading: 'Powering the',
+    accent: 'Frontline',
+    sub: 'with Autonomous Intelligence',
+    desc: 'AI-driven drone platforms, sensor fusion, and autonomous operations delivering persistent surveillance from sky to ground.',
+  },
+  {
+    video: '/home4.mp4',
+    badge: 'IOT | EDGE | CONNECTIVITY',
+    heading: 'Securing the',
+    accent: 'Network',
+    sub: 'with Edge-to-Cloud IoT',
+    desc: 'Ruggedised sensors, mesh gateways, and cloud analytics creating end-to-end situational awareness across every asset.',
   },
 ]
 
@@ -33,10 +52,10 @@ function Hero() {
   const [slideIndex, setSlideIndex] = useState(0)
   const [transitioning, setTransitioning] = useState(false)
   const [textVisible, setTextVisible] = useState(true)
+  const [videoReady, setVideoReady] = useState(false)
 
   const slide = heroSlides[slideIndex]
 
-  // Switch to next slide
   const goToNext = useCallback(() => {
     if (transitioning) return
     setTextVisible(false)
@@ -46,33 +65,50 @@ function Hero() {
         setSlideIndex((prev) => (prev + 1) % heroSlides.length)
         setTransitioning(false)
         setTextVisible(true)
-      }, 600)
-    }, 200)
+      }, 500)
+    }, 220)
   }, [transitioning])
 
-  // Play video for current slide and auto-advance when it ends
   useEffect(() => {
     const video = videoRef.current
     if (!video) return
 
-    video.src = slide.video
-    video.load()
-    video.playbackRate = 1.25
-    video.play().catch(() => {})
+    setVideoReady(false)
+
+    const handleLoadedData = () => {
+      video.playbackRate = VIDEO_PLAYBACK_RATE
+      const playPromise = video.play()
+      if (playPromise && typeof playPromise.then === 'function') {
+        playPromise
+          .then(() => setVideoReady(true))
+          .catch(() => setVideoReady(true))
+      } else {
+        setVideoReady(true)
+      }
+    }
 
     const handleEnded = () => goToNext()
+
+    video.src = slide.video
+    video.currentTime = 0
+    video.load()
+
+    video.addEventListener('loadeddata', handleLoadedData)
     video.addEventListener('ended', handleEnded)
-    return () => video.removeEventListener('ended', handleEnded)
+
+    return () => {
+      video.removeEventListener('loadeddata', handleLoadedData)
+      video.removeEventListener('ended', handleEnded)
+    }
   }, [slideIndex, slide.video, goToNext])
 
-  // Counter animation
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.querySelectorAll('.stat-number').forEach((counter) => {
-              const target = parseInt(counter.dataset.target)
+              const target = parseInt(counter.dataset.target, 10)
               const start = performance.now()
               const duration = 2500
               const animate = (now) => {
@@ -89,25 +125,25 @@ function Hero() {
       },
       { threshold: 0.3 }
     )
+
     if (statsRef.current) observer.observe(statsRef.current)
     return () => observer.disconnect()
   }, [])
 
   return (
     <section id="home" className="hero">
-      {/* Video Background */}
       <div className="hero-video-wrap">
         <video
           ref={videoRef}
-          className="hero-video"
+          className={`hero-video ${videoReady ? 'is-ready' : ''}`}
           autoPlay
           muted
           playsInline
+          preload="auto"
         />
         <div className="hero-video-overlay"></div>
       </div>
 
-      {/* Animated Background (on top of video) */}
       <div className="hero-bg-animated">
         <div className="hero-gradient-mesh"></div>
         <div className="hero-orb orb-1"></div>
@@ -115,25 +151,23 @@ function Hero() {
         <div className="hero-orb orb-3"></div>
         <div className="hero-grid"></div>
 
-        {/* Floating particles */}
         <div className="hero-particles">
-          {[...Array(30)].map((_, i) => (
+          {[...Array(8)].map((_, i) => (
             <div
               key={i}
               className="hero-particle"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
-                width: `${2 + Math.random() * 4}px`,
-                height: `${2 + Math.random() * 4}px`,
-                animationDelay: `${Math.random() * 6}s`,
-                animationDuration: `${4 + Math.random() * 6}s`,
+                width: `${2 + Math.random() * 3}px`,
+                height: `${2 + Math.random() * 3}px`,
+                animationDelay: `${Math.random() * 9}s`,
+                animationDuration: `${8 + Math.random() * 8}s`,
               }}
             />
           ))}
         </div>
 
-        {/* 3D Rotating rings */}
         <div className="hero-3d-rings">
           <div className="hero-ring ring-1"></div>
           <div className="hero-ring ring-2"></div>
@@ -159,43 +193,13 @@ function Hero() {
             </h1>
             <p className="hero-sub">{slide.desc}</p>
             <div className="hero-btns">
-              <a href="#products" className="btn btn-primary">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <Link to="/products" className="btn btn-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" /></svg>
                 Explore Solutions
-              </a>
-              <a href="#contact" className="btn btn-outline">Get In Touch</a>
-            </div>
-            <div className="hero-trust">
-              <span className="trust-label">CLASSIFIED CLEARANCE</span>
-              <div className="trust-badges">
-                <span className="trust-badge">ISO 9001</span>
-                <span className="trust-badge">MIL-STD-810G</span>
-                <span className="trust-badge">MAKE IN INDIA</span>
-              </div>
+              </Link>
+              <Link to="/contact" className="btn btn-outline">Get In Touch</Link>
             </div>
           </div>
-        </div>
-
-        {/* Slide indicators */}
-        <div className="hero-slide-nav">
-          {heroSlides.map((_, i) => (
-            <button
-              key={i}
-              className={`hero-slide-dot ${i === slideIndex ? 'active' : ''}`}
-              onClick={() => {
-                if (i !== slideIndex && !transitioning) {
-                  setTextVisible(false)
-                  setTransitioning(true)
-                  setTimeout(() => {
-                    setSlideIndex(i)
-                    setTransitioning(false)
-                    setTextVisible(true)
-                  }, 600)
-                }
-              }}
-              aria-label={`Slide ${i + 1}`}
-            />
-          ))}
         </div>
 
         <div className="hero-stats" ref={statsRef}>

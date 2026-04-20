@@ -27,34 +27,16 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
   text-decoration: none;
 }
 
-.psitech-logo-svg {
+.psitech-logo-img {
   flex-shrink: 0;
+  transition: transform 0.3s ease;
 }
 
-.logo-text {
-  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 1.35rem;
-  font-weight: 600;
-  color: #ffffff;
-  letter-spacing: 0.5px;
-  transition: color 0.3s ease;
-}
-
-#navbar.scrolled .logo-text {
-  color: #ffffff;
-}
-
-.logo-accent {
-  font-weight: 600;
-  color: #ffffff;
-}
-
-#navbar.scrolled .logo-accent {
-  color: #ffffff;
+.logo:hover .psitech-logo-img {
+  transform: scale(1.04);
 }
 
 .nav-links {
@@ -98,6 +80,14 @@
 .nav-links a:hover,
 .dropdown-toggle:hover {
   color: #ffffff;
+}
+
+.nav-links a.active {
+  color: #F5A623;
+}
+
+.nav-links a.active::after {
+  width: 100%;
 }
 
 #navbar.scrolled .nav-links a,

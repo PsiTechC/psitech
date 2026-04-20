@@ -1,7 +1,19 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx vite:*)"
+      "Bash(npx vite:*)",
+      "Bash(git commit:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(git ls-files:*)",
+      "Bash(sort -k4 -n -r)",
+      "Bash(node -e \"import\\('./src/data/products.js'\\).then\\(m => { const army = m.default.find\\(p => p.id==='army-defense-solutions'\\); const cyber = m.default.find\\(p => p.id==='defense-cybersecurity'\\); console.log\\('ARMY:', army.title, '|', army.features.length, 'features'\\); console.log\\('CYBER:', cyber.title, '|', cyber.features.length, 'features'\\); console.log\\('OK'\\); }\\).catch\\(e => { console.error\\(e\\); process.exit\\(1\\); }\\);\")",
+      "Bash(node -e \"import\\('./src/data/products.js'\\).then\\(m => { const a = m.default.find\\(p => p.id==='army-defense-solutions'\\); const c = m.default.find\\(p => p.id==='defense-cybersecurity'\\); console.log\\('ARMY title:', a.title\\); console.log\\('CYBER title:', c.title\\); }\\);\")",
+      "Bash(node -e \"import\\('./src/data/products.js'\\).then\\(m => { const visible = m.default.filter\\(p => !p.hidden\\); const hidden = m.default.filter\\(p => p.hidden\\); console.log\\('VISIBLE:'\\); visible.forEach\\(p => console.log\\(' -', p.title\\)\\); console.log\\('HIDDEN:'\\); hidden.forEach\\(p => console.log\\(' -', p.title\\)\\); }\\);\")",
+      "Bash(node -e \"import\\('./src/data/products.js'\\).then\\(m => { const visible = m.default.filter\\(p => !p.hidden\\); console.log\\('VISIBLE PRODUCTS:'\\); visible.forEach\\(p => console.log\\('-', p.title, '/', p.tagline\\)\\); const all = JSON.stringify\\(m.default\\); const blocked = ['Indian Army', 'Indian Navy', 'Siachen', 'Thar Desert', 'AFNET', 'Atmanirbhar', 'MIL-STD', 'MANET', 'SIGINT', 'Indian defence', 'MoD']; blocked.forEach\\(b => { const v = visible.filter\\(p => JSON.stringify\\(p\\).includes\\(b\\)\\); if \\(v.length\\) console.log\\('LEAK:', b, '→', v.map\\(p=>p.title\\)\\); }\\); console.log\\('DONE'\\); }\\);\")",
+      "Bash(grep -E \"\\\\.\\(png|ico|svg\\)$\")",
+      "Bash(sshpass *)",
+      "Bash(ssh -o StrictHostKeyChecking=accept-new -o ConnectTimeout=10 -o BatchMode=yes -v root@72.60.203.40 'echo x')"
     ]
   }
 }

@@ -1,1 +1,19 @@
-/* App-level styles — empty, component styles are in /styles */
+/* Standalone route pages — offset for fixed navbar */
+.standalone-page {
+  padding-top: 68px;
+  min-height: 100vh;
+}
+
+.standalone-page > .section:first-of-type {
+  padding-top: 72px;
+}
+
+@media (max-width: 768px) {
+  .standalone-page {
+    padding-top: 62px;
+  }
+
+  .standalone-page > .section:first-of-type {
+    padding-top: 56px;
+  }
+}

@@ -9,22 +9,21 @@ function GlobalBackground() {
       <div className="global-orb gorb-3"></div>
       <div className="global-grid"></div>
       <div className="global-particles">
-        {[...Array(40)].map((_, i) => (
+        {[...Array(10)].map((_, i) => (
           <div
             key={i}
             className="global-particle"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              width: `${2 + Math.random() * 3}px`,
-              height: `${2 + Math.random() * 3}px`,
-              animationDelay: `${Math.random() * 8}s`,
-              animationDuration: `${5 + Math.random() * 7}s`,
+              left: `${(i * 11) % 100}%`,
+              top: `${(i * 23) % 100}%`,
+              width: `${2 + (i % 3)}px`,
+              height: `${2 + (i % 3)}px`,
+              animationDelay: `${(i * 1.3) % 8}s`,
+              animationDuration: `${7 + (i % 5)}s`,
             }}
           />
         ))}
       </div>
-      <div className="global-scanline"></div>
     </div>
   )
 }
